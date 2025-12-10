@@ -1,4 +1,22 @@
+#define _GNU_SOURCE
 #include "../inc/ft_strace.h"
+#include <fcntl.h>
+
+int is_elf(const char *path) {
+    int fd = open(path, O_RDONLY);
+    if (fd < 0) return 0;
+    
+    unsigned char buf[4];
+    if (read(fd, buf, 4) != 4) {
+        close(fd);
+        return 0;
+    }
+    close(fd);
+    
+    if (buf[0] == 0x7f && buf[1] == 'E' && buf[2] == 'L' && buf[3] == 'F')
+        return 1;
+    return 0;
+}
 
 void error_exit(const char *msg) {
     perror(msg);

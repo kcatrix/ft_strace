@@ -14,7 +14,6 @@
 #include <errno.h>
 #include <sys/uio.h>
 #include <elf.h>
-#include <elf.h>
 #include "syscall_table.h"
 
 // Colors
@@ -41,6 +40,7 @@ extern t_syscall_stats stats_32[];
 
 void error_exit(const char *msg);
 char *find_binary(char *cmd, char **env);
+int is_elf(const char *path);
 void handle_signals(void);
 void init_signals_child(void);
 

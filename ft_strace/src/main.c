@@ -64,6 +64,12 @@ int main(int argc, char **argv, char **envp) {
         fprintf(stderr, "ft_strace: command not found: %s\n", argv[arg_idx]);
         return 1;
     }
+
+    if (!is_elf(ctx.bin_path)) {
+       fprintf(stderr, "ft_strace: file format not recognized: %s\n", ctx.bin_path);
+       free(ctx.bin_path);
+       return 1; 
+    }
     
     // Setup child args (starting from command)
     ctx.args = &argv[arg_idx];
